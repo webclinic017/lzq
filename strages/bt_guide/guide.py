@@ -59,7 +59,7 @@ class TestStrategy(bt.Strategy):
 
 cerebro = bt.Cerebro()
 cerebro.addstrategy(TestStrategy, maperiod=5)
-datapath = os.path.join(os.getcwd(), "bt/orcl-1995-2014.txt")
+datapath = os.path.join(os.getcwd(), "orcl-1995-2014.txt")
 data = bt.feeds.GenericCSVData(
     dataname=datapath,
     fromdate=datetime.datetime(2000, 1, 1),
