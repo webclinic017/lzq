@@ -1,5 +1,5 @@
 import akshare as ak
-
+import functools
 from data.utils import clock
 from .sql import safe_sessionmaker, Stock
 from concurrent.futures import ThreadPoolExecutor
@@ -12,9 +12,15 @@ def download_individual_stock(symbol):
         print(f"下载 {symbol} 失败 {e}")
         return download_individual_stock(symbol)
 
+
+@functools.lru_cache()
+def download_stock_info_a_code_name():
+    return ak.stock_info_a_code_name()
+
+
 @clock
 def download_all_a_stock():
-    name_df = ak.stock_info_a_code_name()
+    name_df = download_stock_info_a_code_name()
     results = []
     with ThreadPoolExecutor(max_workers=100) as pool:
         results = pool.map(download_individual_stock, tuple(name_df['code']))
