@@ -1,7 +1,4 @@
-from ast import Str
-from isort import code
-from requests import session
-from sqlalchemy import Column, Integer, String, DateTime, Float
+from sqlalchemy import Column, Integer, String, Boolean, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -35,12 +32,11 @@ class Stock(ModelBase):
     total_capital = Column(Float)  # 总股本
     flow_capital = Column(Float)  # 流通股本
 
-
 Stock.metadata.create_all(engine)
 
 
 class KData(ModelBase):
-    __tablename__ = 'kdata'
+    __tablename__ = 'k_data'
     id = Column(String, primary_key=True)
     code = Column(Integer)  # 股票代码
     open = Column(Float)  # 开盘价
@@ -56,8 +52,9 @@ class KData(ModelBase):
     period = Column(String)  # 周期：daily、weekly、monthly
     date = Column(String)  # 时间
     adjust = Column(String)  # 复权，qfq、hfq、bfq
+    is_trading = Column(Boolean) # 是否处于交易日
 
-
+ 
 KData.metadata.create_all(engine)
 
 
