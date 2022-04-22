@@ -1,6 +1,7 @@
 import backtrader as bt
-import akshare as ak
 import pandas as pd
+from lzq.data.model import KData
+import akshare as ak
 
 
 class ThreeMa(bt.Strategy):
@@ -60,25 +61,11 @@ class ThreeMa(bt.Strategy):
 
 
 def start():
-    raw_data = Stock
-    raw_data = ak.stock_zh_a_hist(symbol="000001",
-                                  period="daily",
-                                  start_date="20100101",
-                                  end_date='20211231',
-                                  adjust="hfq")
-    raw_data = raw_data.set_index("日期", drop=False)
-    raw_data["日期"] = pd.to_datetime(raw_data["日期"])
-    stock_data = pd.DataFrame(
-        {
-            "datetime": raw_data["日期"],
-            "open": raw_data["开盘"],
-            "high": raw_data["最高"],
-            "low": raw_data["最低"],
-            "close": raw_data["收盘"],
-            "volume": raw_data["成交量"],
-            "openinterest": 0
-        },
-        index=raw_data["日期"])
+    stock_data = KData.query_all(KData.code == "000001", KData.adjust == "hfq",
+                                 KData.period == "daily")
+    stock_data['openinterest'] = 0
+    stock_data['datetime'] = pd.to_datetime(stock_data['date'])
+    stock_data = stock_data.set_index("datetime")
 
     data = bt.feeds.PandasData(dataname=stock_data)
 

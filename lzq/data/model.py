@@ -1,8 +1,23 @@
+import pandas as pd
 from sqlalchemy import Column, String, Boolean, Float
-from lzq.data.sql import ModelBase, engine
+from lzq.data.sql import ModelBase, engine, safe_sessionmaker
 
 
-class Stock(ModelBase):
+class Mixin:
+    def to_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    @classmethod
+    def query_all(cls, *query):
+        with safe_sessionmaker() as session:
+            raw_list = session.query(cls).filter(*query).all()
+            result = []
+            for item in raw_list:
+                result.append(item.to_dict())
+            return pd.DataFrame(result)
+
+
+class Stock(ModelBase, Mixin):
     '''股票'''
     __tablename__ = 'stock'
     code = Column(String(16), primary_key=True)  # 股票代码
@@ -13,10 +28,12 @@ class Stock(ModelBase):
     flow_capitalization = Column(Float)  # 流通市值
     total_capital = Column(Float)  # 总股本
     flow_capital = Column(Float)  # 流通股本
+
+
 Stock.metadata.create_all(engine)
 
 
-class KData(ModelBase):
+class KData(ModelBase, Mixin):
     '''K线，日/周/月'''
     __tablename__ = 'k_data'
     id = Column(String(32), primary_key=True)
@@ -35,4 +52,6 @@ class KData(ModelBase):
     date = Column(String(16))  # 时间
     adjust = Column(String(4))  # 复权，qfq、hfq、bfq
     is_trading = Column(Boolean)  # 是否处于交易日
+
+
 KData.metadata.create_all(engine)
