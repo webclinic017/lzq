@@ -11,6 +11,8 @@ _config = ConfigParser()
 _config.read(_config_path, encoding='UTF-8')
 
 
+assert path.exists(_config_path), f"配置文件 {_config_path} 不存在"
+
 class Config():
     '''配置'''
 

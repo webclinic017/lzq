@@ -2,7 +2,6 @@ import functools
 import time
 import os
 
-
 def clock(func):
     @functools.wraps(func)
     def clocked(*args, **kwargs):
@@ -20,3 +19,4 @@ def mkdir_if_not_exists(dir):
         os.mkdir(dir)
     elif not os.path.isdir(dir):
         raise (Exception(f"{dir} 不是个文件夹"))
+
