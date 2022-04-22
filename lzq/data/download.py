@@ -1,8 +1,10 @@
 import akshare as ak
 import functools
+from lzq.common.config import Config
 from lzq.common.logger import logger
 from lzq.common.utils import clock
-from lzq.data.sql import KData, safe_sessionmaker, Stock
+from lzq.data.sql import safe_sessionmaker
+from lzq.data.model import KData, Stock
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import pandas as pd
@@ -33,7 +35,7 @@ def download_all_a_stock() -> List[Stock]:
     logger.debug("开始下载所有股票")
     name_df = download_stock_info_a_code_name()
     results = []
-    with ThreadPoolExecutor(max_workers=50) as pool:
+    with ThreadPoolExecutor(max_workers=Config.RequestWorker) as pool:
         results = pool.map(download_individual_stock, list(name_df['code']))
 
     stocks = []
@@ -162,6 +164,6 @@ def download_all_a_stock_k_data(period="daily", adjust=""):
     end_date = datetime.now().strftime("%Y%m%d")
     for code in codes:
         params_list.append((code, period, start_date, end_date, adjust))
-    with ThreadPoolExecutor(max_workers=1) as pool:
+    with ThreadPoolExecutor(max_workers=Config.RequestWorker) as pool:
         pool.map(download_a_stock_k_data, params_list)
     logger.info("下载完成所有股票行情数据")
