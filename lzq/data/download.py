@@ -14,10 +14,11 @@ from typing import List
 def download_individual_stock(symbol):
     '''下载单个股票信息'''
     try:
-        logger.debug(f"下载 {symbol}")
-        return ak.stock_individual_info_em(symbol=symbol)
+        info = ak.stock_individual_info_em(symbol=symbol)
+        logger.debug(f"下载 {symbol} 信息成功")
+        return info
     except Exception as e:
-        logger.error(f"下载 {symbol} 失败 {e}")
+        logger.error(f"下载 {symbol} 信息失败 {e}")
         return download_individual_stock(symbol)
 
 
@@ -75,6 +76,7 @@ def download_a_stock_k_data(params):
     '''下载单个股票行情数据'''
     try:
         (symbol, period, start_date, end_date, adjust) = params
+        logger.debug(f"下载 {symbol} K线数据 {params}")
         k_data_pf = ak.stock_zh_a_hist(symbol=symbol,
                                        period=period,
                                        start_date=start_date,

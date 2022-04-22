@@ -23,7 +23,7 @@ class Config():
     LogFormat = _config.get("log", "format", raw=True)
 
     # 并发
-    RequestWorker = _config.get("concurrent", "request_worker")
+    RequestWorker = _config.getint("concurrent", "request_worker")
 
 
 
