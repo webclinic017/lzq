@@ -60,6 +60,7 @@ class ThreeMa(bt.Strategy):
 
 
 def start():
+    raw_data = Stock
     raw_data = ak.stock_zh_a_hist(symbol="000001",
                                   period="daily",
                                   start_date="20100101",
