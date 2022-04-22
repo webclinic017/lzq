@@ -2,7 +2,7 @@
 from os import path, getcwd
 from configparser import ConfigParser
 
-from lzq.common.utils import mkdir_if_not_exists
+from core.common.utils import mkdir_if_not_exists
 
 _base_path = getcwd()
 _config_path = path.join(_base_path, '.config.ini')

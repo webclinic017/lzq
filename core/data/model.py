@@ -1,6 +1,6 @@
 import pandas as pd
 from sqlalchemy import Column, String, Boolean, Float
-from lzq.data.sql import ModelBase, engine, safe_sessionmaker
+from core.data.sql import ModelBase, engine, safe_sessionmaker
 
 
 class Mixin:

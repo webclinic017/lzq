@@ -1,6 +1,6 @@
 import backtrader as bt
 import pandas as pd
-from lzq.data.model import KData
+from core.data.model import KData
 import akshare as ak
 
 
@@ -61,6 +61,7 @@ class ThreeMa(bt.Strategy):
 
 
 def start():
+    '''三均线策略'''
     stock_data = KData.query_all(KData.code == "000001", KData.adjust == "hfq",
                                  KData.period == "daily")
     stock_data['openinterest'] = 0

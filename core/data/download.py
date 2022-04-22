@@ -1,10 +1,10 @@
 import akshare as ak
 import functools
-from lzq.common.config import Config
-from lzq.common.logger import logger
-from lzq.common.utils import clock
-from lzq.data.sql import safe_sessionmaker
-from lzq.data.model import KData, Stock
+from core.common.config import Config
+from core.common.logger import logger
+from core.common.utils import clock
+from core.data.sql import safe_sessionmaker
+from core.data.model import KData, Stock
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import pandas as pd

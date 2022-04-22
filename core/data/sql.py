@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from contextlib import contextmanager
 
-from lzq.common.config import Config
+from core.common.config import Config
 
 engine = create_engine(
     Config.DB_URL,

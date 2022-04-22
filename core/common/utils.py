@@ -1,6 +1,4 @@
-from concurrent.futures import thread
 import functools
-from genericpath import isdir
 import time
 import os
 

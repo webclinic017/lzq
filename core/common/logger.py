@@ -1,7 +1,7 @@
 # encoding=utf-8
 
 import logging
-from lzq.common.config import Config
+from core.common.config import Config
 from os import path
 from datetime import datetime
 
