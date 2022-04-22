@@ -1,2 +1,4 @@
 stock.db
 __pycache__
+.config.ini
+.logs
