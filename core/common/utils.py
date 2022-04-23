@@ -20,3 +20,9 @@ def mkdir_if_not_exists(dir):
     elif not os.path.isdir(dir):
         raise (Exception(f"{dir} 不是个文件夹"))
 
+
+def every(arr, fn):
+    for item in arr:
+        if not fn(item):
+            return False
+    return True
