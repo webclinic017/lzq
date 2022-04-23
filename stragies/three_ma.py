@@ -1,7 +1,6 @@
 import backtrader as bt
 import pandas as pd
 from core.data.model import KData
-import akshare as ak
 
 
 class ThreeMa(bt.Strategy):

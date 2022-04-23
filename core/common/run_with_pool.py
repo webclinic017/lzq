@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
+import sys
 from time import sleep
 from core.common.utils import every
 from core.common.logger import logger
@@ -31,4 +32,5 @@ def run_with_pool(worker, max_works, paramses, desc):
             quite = True
             [f.cancel() for f in fs]
             pool.shutdown()
+            sys.exit(1)
             raise e
