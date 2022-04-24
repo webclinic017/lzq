@@ -1,4 +1,4 @@
-# encoding=utf-8
+# -*- coding: UTF-8 -*-
 
 import logging
 from core.common.config import Config

@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import importlib
 import fire
 from core.common.logger import logger
@@ -6,15 +8,16 @@ import os
 
 class LazyQuant:
     '''A way to lazy quant'''
-    def downloadall(self):
+
+    def downloadall(self, period="daily", adjust="hfq"):
         '''下载所有数据：股票信息、股票历史行情'''
         from core.data.download import download_all_a_stock_k_data, download_all_a_stock
 
         download_all_a_stock()
-        download_all_a_stock_k_data()
+        download_all_a_stock_k_data(period=period, adjust=adjust)
 
-    def download(self, code, period="daily", adjust=""):
-        '''下载单个股票数据。period取值daily、weekly、monthly。adjust取值qfq、hfq或空'''
+    def download(self, code, period="daily", adjust="hfq"):
+        '''下载单个股票数据。period取值daily、weekly、monthly。adjust取值qfq、hfq或bfq'''
         from core.data.download import download_individual_stock, download_a_stock_k_data
         from datetime import datetime
 

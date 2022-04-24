@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import pandas as pd
 from sqlalchemy import Column, String, Boolean, Float
 from core.data.sql import ModelBase, engine, safe_sessionmaker

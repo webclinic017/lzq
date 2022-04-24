@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 from concurrent.futures import ThreadPoolExecutor
 import sys
 from time import sleep

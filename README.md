@@ -70,3 +70,16 @@
 - [x] [三均线策略](stragies/)
 - [ ] 待续...
 
+## 问题记录
+
+1. `xlrd.biffh.XLRDError: Excel xlsx file; not supported`
+    xlrd版本过高，使用`pip3 install xlrd==1.2.0`安装低版本的。
+
+2. mysql创建的数据库编码错误。
+    ```bash
+    use stock;
+    # 查看编码
+    show variables like 'character_set_database';
+    # 修改编码为utf8
+    alter database stock CHARACTER SET utf8;
+    ```

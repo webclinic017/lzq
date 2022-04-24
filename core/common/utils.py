@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import functools
 import time
 import os

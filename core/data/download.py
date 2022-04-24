@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import akshare as ak
 import functools
 from core.common.config import Config
@@ -86,7 +87,7 @@ def download_a_stock_k_data(params):
             period=period,
             start_date=start_date,
             end_date=end_date,
-            adjust=adjust,
+            adjust=adjust if adjust != "bfq" else '',
         )
         k_data_dates = list(k_data_pf["日期"])
         start_datetime = pd.to_datetime(k_data_pf.loc[0, "日期"])
@@ -98,9 +99,6 @@ def download_a_stock_k_data(params):
         ]["date"].apply(lambda x: x.strftime("%Y-%m-%d"))
 
         k_data_pf = k_data_pf.set_index("日期", drop=False)
-
-        # 设置不复权的标识
-        adjust = adjust or "bfq"
 
         k_datas = []
         for date in trading_info_dates:
@@ -123,7 +121,7 @@ def download_a_stock_k_data(params):
                         turnover=k_data["换手率"],
                         period=period,
                         date=k_data["日期"],
-                        adjust=adjust or "bfq",
+                        adjust=adjust,
                         is_trading=True,
                     )
                 )
@@ -163,7 +161,7 @@ def download_a_stock_k_data(params):
 
 
 @clock
-def download_all_a_stock_k_data(period="daily", adjust=""):
+def download_all_a_stock_k_data(period="daily", adjust="hfq"):
     """下载所有股票行情数据"""
     stocks = download_stock_info_a_code_name()
     codes = list(stocks["code"])
@@ -173,7 +171,7 @@ def download_all_a_stock_k_data(period="daily", adjust=""):
     for code in codes:
         params_list.append((code, period, start_date, end_date, adjust))
     run_with_pool(
-        download_a_stock_k_data, Config.RequestWorker, params_list, "下载所有股票行情数据"
+        download_a_stock_k_data, 5, params_list, "下载所有股票{period} {adjust}行情数据"
     )
 
     logger.info("下载完成所有股票行情数据")
