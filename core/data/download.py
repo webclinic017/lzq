@@ -171,7 +171,7 @@ def download_all_a_stock_k_data(period="daily", adjust="hfq"):
     for code in codes:
         params_list.append((code, period, start_date, end_date, adjust))
     run_with_pool(
-        download_a_stock_k_data, 5, params_list, "下载所有股票{period} {adjust}行情数据"
+        download_a_stock_k_data, 4, params_list, f"下载所有股票{period} {adjust}行情数据"
     )
 
     logger.info("下载完成所有股票行情数据")

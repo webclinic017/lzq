@@ -47,4 +47,6 @@ class LazyQuant:
 
 
 if __name__ == '__main__':
-    fire.Fire(LazyQuant)
+    # fire.Fire(LazyQuant)
+    from core.data.download import download_all_a_stock_k_data, download_all_a_stock
+    download_all_a_stock_k_data()
